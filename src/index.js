@@ -7,7 +7,8 @@ var debounce = require('lodash.debounce');
 const DEBOUNCE_DELAY = 300;
 const refs = {
     searchBox: document.querySelector("#search-box"),
-    countryList:document.querySelector(".country-list"),
+    countryList: document.querySelector(".country-list"),
+    countryInfo:document.querySelector(".country-info")
 }
 
 refs.searchBox.addEventListener("input",debounce(onSearchInput,DEBOUNCE_DELAY))
@@ -33,8 +34,16 @@ function lengthCheck(r) {
 }
 
 function listMarkup(r) { 
-    if (r.length >= 2 && r.length <= 10) { 
-       const markup= countryListMarkupHbs(r)
-     refs.countryList.innerHTML=markup
+    if (r.length >= 2 && r.length <= 10) {
+        const markup = countryListMarkupHbs(r)
+        refs.countryList.innerHTML = markup
+        refs.countryInfo.innerHTML = ""
     }
+    else { countryMarkup(r)}
+}
+
+function countryMarkup(r) { 
+    refs.countryList.innerHTML = ""
+    const markup = countryMarkupHbs(r)
+    refs.countryInfo.innerHTML = markup
 }
