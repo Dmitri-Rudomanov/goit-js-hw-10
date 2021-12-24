@@ -2,6 +2,7 @@ import './css/styles.css';
 import { fetchCountries } from './js/fetchCountries';
 import countryMarkupHbs from './templates/country.hbs';
 import countryListMarkupHbs from './templates/country-list.hbs';
+import Notiflix from 'notiflix';
 
 var debounce = require('lodash.debounce');
 const DEBOUNCE_DELAY = 300;
@@ -18,17 +19,18 @@ function onSearchInput(e) {
         const countryInput = e.target.value.trim()
         fetchCountries(countryInput)
             .then(r => lengthCheck(r))
-        console.log(fetchCountries(countryInput))
-        
+            .catch(error => clearAreaError())
+    }
+    else { 
+    clearArea()
     }
 
 }
 function lengthCheck(r) { 
     if (r.length > 10) {
-        console.log("too much")
+        Notiflix.Notify.info("Too many matches found. Please enter a more specific name.")
     }
     else { 
-        console.log('ok')
         listMarkup(r)
     }
 }
@@ -46,4 +48,12 @@ function countryMarkup(r) {
     refs.countryList.innerHTML = ""
     const markup = countryMarkupHbs(r)
     refs.countryInfo.innerHTML = markup
+}
+function clearArea() { 
+    refs.countryList.innerHTML = ""
+    refs.countryInfo.innerHTML = ""
+}
+function clearAreaError() { 
+    clearArea()
+    Notiflix.Notify.failure("Oops, there is no country with that name")
 }

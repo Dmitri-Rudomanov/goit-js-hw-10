@@ -1,7 +1,7 @@
 {{#each this}}
-<h2 class="country__title-name">{{name.official}}</h2>
+<h2 class="country__title-name">{{name.official}}<span>({{name.common}})</span></h2>
 <div class="country__box">
-    <img src="{{flags.svg}}" alt="{{name}}" class="country__img" style="width: 80px;height:60px">
+    <img src="{{flags.svg}}" alt="{{name.official}}" class="country__img" style="width: 80px;height:60px">
     <div class="country__content">
         <p class="country__text">
             <span>Capital:</span> {{capital}}
