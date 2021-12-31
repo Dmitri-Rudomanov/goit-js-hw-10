@@ -29,6 +29,7 @@ function onSearchInput(e) {
 function lengthCheck(r) { 
     if (r.length > 10) {
         Notiflix.Notify.info("Too many matches found. Please enter a more specific name.")
+        clearArea()
     }
     else { 
         listMarkup(r)
